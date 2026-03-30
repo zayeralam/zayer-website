@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zayer App</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+    }
+
+    input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px;
+      background: #38bdf8;
+      border: none;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🔐 Zayer Login App</h1>
+
+<div id="login">
+  <input type="text" id="username" placeholder="Enter username"><br>
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="dashboard" class="hidden">
+  <h2>Welcome <span id="user"></span></h2>
+  <input type="text" id="data" placeholder="Write something"><br>
+  <button onclick="saveData()">Save</button>
+  <p id="output"></p>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+  function login() {
+    let name = document.getElementById("username").value;
+    localStorage.setItem("user", name);
+    showDashboard();
+  }
+
+  function showDashboard() {
+    let name = localStorage.getItem("user");
+    if (name) {
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("dashboard").classList.remove("hidden");
+      document.getElementById("user").innerText = name;
+      document.getElementById("output").innerText = localStorage.getItem("data") || "";
+    }
+  }
+
+  function saveData() {
+    let data = document.getElementById("data").value;
+    localStorage.setItem("data", data);
+    document.getElementById("output").innerText = data;
+  }
+
+  function logout() {
+    localStorage.clear();
+    location.reload();
+  }
+
+  showDashboard();
+</script>
+
+</body>
+</html>
